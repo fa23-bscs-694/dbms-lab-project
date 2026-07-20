@@ -1,37 +1,5 @@
-#timebank project 
-app.py
-"""
-TimeBank — a community skill-exchange management system.
-Instead of money, members trade in HOURS. Every member starts with a
-small balance of free hours. You list skills you can offer, other
-members book your time, and when a session is marked complete the
-hours move automatically from the requester's balance to the
-provider's balance. An admin view lets you audit every transaction.
-Only dependency: Flask (Werkzeug ships with it). Uses sqlite3 from the
-standard library directly — no ORM, no Flask-Login — so it runs
-anywhere with just `pip install flask`.
-Run:
- pip install flask
- python app.py
-Then open http://127.0.0.1:5000
-"""
-import sqlite3
-from datetime import datetime
-from functools import wraps
-from pathlib import Path
-from flask import (
- Flask, render_template, redirect, url_for, request, flash, abort,
- session, g
-)
-from werkzeug.security import generate_password_hash, check_password_hash
-BASE_DIR = Path(__file__).parent
-DB_PATH = BASE_DIR / "timebank.db"
-STARTING_BALANCE = 5.0
-app = Flask(__name__)
-app.config["SECRET_KEY"] = "change-this-secret-key-in-production"
-# ---------------------------------------------------------------------------
 # Database helpers
-# ---------------------------------------------------------------------------
+
 def get_db():
  if "db" not in g:
  g.db = sqlite3.connect(DB_PATH)
